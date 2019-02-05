@@ -7,6 +7,7 @@ import {
 } from "react-simple-maps"
 import chroma from "chroma-js"
 import { scaleLinear } from "d3-scale"
+import ReactTooltip from "react-tooltip"
 
 const wrapperStyles = {
   width: "100%",
@@ -65,6 +66,26 @@ class Map extends Component {
     this.switchToPopulation = this.switchToPopulation.bind(this)
     this.switchToRegions = this.switchToRegions.bind(this)
   }
+
+  componentDidMount() {
+    setTimeout(() => {
+      ReactTooltip.rebuild()
+    }, 100)
+  }
+
+
+  onSelectCountry = (geography, evt) => {
+    var geodata = this.props.countryData;
+    var selectedCountryData;
+    if (geodata[geography.properties.name]) {
+      selectedCountryData = (geodata[geography.properties.name])
+    }
+    else {
+      selectedCountryData = "No data for this country!"
+    }
+    console.log(selectedCountryData)
+  }
+
   switchToPopulation() {
     this.setState({ populationData: true })
   }
@@ -106,9 +127,10 @@ class Map extends Component {
                     <Geography
                       key={`${geography.properties.iso_a3}-${i}`}
                       cacheId={`${geography.properties.iso_a3}-${i}`}
+                      data-tip={geography.properties.name}
                       geography={ geography }
                       projection={ projection }
-                      onClick={ this.handleClick }
+                      onClick={ this.onSelectCountry }
                       round
                       style={{
                         default: {
@@ -141,6 +163,7 @@ class Map extends Component {
               </Geographies>
             </ZoomableGroup>
           </ComposableMap>
+          <ReactTooltip />
         </div>
       </div>
     )
