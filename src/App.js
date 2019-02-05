@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Map from "./components/Map"
 import * as d3 from 'd3'
+import CountryInfo from './components/CountryInfo';
 
 class App extends Component {
 
@@ -22,6 +23,10 @@ class App extends Component {
     this.loadData()
   }
 
+  handleDataSelection = (data) => {
+    this.setState({selectedCountry: data});
+}
+
   loadData =() => {
     let data = {}
     let url = process.env.PUBLIC_URL+ "./data/" + this.state.variable +this.state.wave + '.csv'
@@ -41,14 +46,16 @@ class App extends Component {
         
       })
       this.setState({countryData:data})
-      console.log(data)
       //this.setState({countryData:res})
     }) 
    
   }
   render() {
     return (
-      <Map countryData={this.state.countryData} />
+      <div>
+      <Map countryData={this.state.countryData} onCountrySelect={this.handleDataSelection}/>
+      <CountryInfo selectedCountry={this.state.selectedCountry}/>
+      </div>
     );
   }
 }

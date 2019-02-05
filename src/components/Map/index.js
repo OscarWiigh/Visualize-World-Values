@@ -76,14 +76,14 @@ class Map extends Component {
 
   onSelectCountry = (geography, evt) => {
     var geodata = this.props.countryData;
-    var selectedCountryData;
+    let selectedCountryData;
     if (geodata[geography.properties.name]) {
       selectedCountryData = (geodata[geography.properties.name])
     }
     else {
       selectedCountryData = "No data for this country!"
     }
-    console.log(selectedCountryData)
+    this.props.onCountrySelect(selectedCountryData)
   }
 
   switchToPopulation() {
