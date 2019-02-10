@@ -3,58 +3,85 @@ import './App.css';
 import Map from "./components/Map"
 import * as d3 from 'd3'
 import CountryInfo from './components/CountryInfo';
+import Select from 'react-select'
+
+const waveoptions = [
+  { value: 'Wave6', label: 'Wave 6' },
+  { value: 'Wave5', label: 'Wave 5' },
+  { value: 'Wave4', label: 'Wave 4' },
+  { value: 'Wave3', label: 'Wave 3' }
+]
 
 class App extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
-   
+
   }
-  state = { 
-    countryData:[],
-    wave:'Wave6',
+  state = {
+    countryData: [],
+    wave: 'Wave6',
     variable: 'Happiness',
     columns: [],
-    selectedCountry:{}
-    
+    selectedCountry: {},
+    maxPercentage: 100,
+    update: false
+
   };
 
-  componentDidMount(){
+  componentDidMount() {
     this.loadData()
   }
 
   handleDataSelection = (data) => {
-    this.setState({selectedCountry: data});
-}
+    this.setState({ selectedCountry: data });
+  }
 
-  loadData =() => {
+  handleWaveSelection = (e) => {
+    let wave = this.state.wave;
+    if (wave !== e.value){this.setState({wave: e.value, update: true})}
+    setTimeout(() => {
+      this.setState({update: false})
+    }, 100)
+  }
+
+  loadData = () => {
+    let max = 0;
     let data = {}
-    let url = process.env.PUBLIC_URL+ "./data/" + this.state.variable +this.state.wave + '.csv'
+    let url = process.env.PUBLIC_URL + "./data/" + this.state.variable + this.state.wave + '.csv'
     d3.csv(url).then(res => {
       let columns = Object.keys(res[0]).slice(1);
-      this.setState({columns: columns})
+      this.setState({ columns: columns })
       res.forEach((row) => {
         let country = row.Country
         delete row.Country
         var newRow = {}
-        
+
         Object.keys(row).map((o) => {
-          
+
           newRow[o] = parseInt(row[o])
         })
         data[country] = newRow
-        
+        if (data[country][Object.keys(data[country])[0]] >= max) {
+          max = data[country][Object.keys(data[country])[0]]
+        }
       })
-      this.setState({countryData:data})
-      //this.setState({countryData:res})
-    }) 
-   
+      this.setState({ countryData: data, maxPercentage: max })
+    })
+
   }
   render() {
+    if(this.state.update) {
+      this.loadData()
+    }
     return (
       <div>
-      <Map countryData={this.state.countryData} onCountrySelect={this.handleDataSelection}/>
-      <CountryInfo selectedCountry={this.state.selectedCountry}/>
+        <div id="selectContainer">
+          <h3>{"Wave " + this.state.wave.substring(4,5)}</h3>
+          <Select defaultValue={waveoptions[0]} onChange={this.handleWaveSelection} options={waveoptions}/>
+        </div>
+        <Map countryData={this.state.countryData} percentage={this.state.maxPercentage} onCountrySelect={this.handleDataSelection} />
+        <CountryInfo selectedCountry={this.state.selectedCountry} />
       </div>
     );
   }

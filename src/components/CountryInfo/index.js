@@ -3,23 +3,31 @@ import React, { Component } from "react"
 class CountryInfo extends Component {
   constructor() {
     super()
+    this.objtoelements = this.objtoelements.bind(this)
 
   }
 
+  objtoelements (obj) {
+    let elarray = []
+    for (const key of Object.keys(obj)) {
+      elarray.push(<p key={key}>{key + ": " + obj[key] + "%"}</p>);
+  }
+    return elarray;
+  }
 
   render() {
+    let countrydata = this.props.selectedCountry;
 
-    if (this.props.selectedCountry.Total) {
-      console.log(this.props.selectedCountry)
+    if (Object.keys(countrydata).length !== 0) {
       return (
         <div>
-        <p>{"Total partcipants: " + this.props.selectedCountry.Total}</p>
-        <p>{"Very happy: " + this.props.selectedCountry["Very happy"] + "%"}</p>
+          <h2>Country data</h2>
+          {this.objtoelements(countrydata)}
         </div>
       )
     }
     else {
-      return null
+      return <p>No data!</p>
     }
   }
 }

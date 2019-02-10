@@ -5,7 +5,6 @@ import {
   Geographies,
   Geography,
 } from "react-simple-maps"
-import chroma from "chroma-js"
 import { scaleLinear } from "d3-scale"
 import ReactTooltip from "react-tooltip"
 
@@ -15,56 +14,10 @@ const wrapperStyles = {
   margin: "0 auto",
 }
 
-const colorScale = chroma
-  .scale([
-    '#FF6E40',
-    'FFD740',
-    '#00B8D4',
-  ])
-  .mode('lch')
-  .colors(24)
-
-const subregions = [
-  "Southern Asia",
-  "Polynesia",
-  "Micronesia",
-  "Southern Africa",
-  "Central Asia",
-  "Melanesia",
-  "Western Europe",
-  "Central America",
-  "Seven seas (open ocean)",
-  "Northern Africa",
-  "Caribbean",
-  "South-Eastern Asia",
-  "Eastern Africa",
-  "Australia and New Zealand",
-  "Eastern Europe",
-  "Western Africa",
-  "Southern Europe",
-  "Eastern Asia",
-  "South America",
-  "Middle Africa",
-  "Antarctica",
-  "Northern Europe",
-  "Northern America",
-  "Western Asia",
-]
-
-const popScale = scaleLinear()
-  .domain([0,100000000,1400000000])
-  .range(["#CFD8DC","#607D8B","#37474F"])
-
 class Map extends Component {
   constructor() {
     super()
 
-    this.state = {
-      populationData: true,
-    }
-
-    this.switchToPopulation = this.switchToPopulation.bind(this)
-    this.switchToRegions = this.switchToRegions.bind(this)
   }
 
   componentDidMount() {
@@ -81,29 +34,28 @@ class Map extends Component {
       selectedCountryData = (geodata[geography.properties.name])
     }
     else {
-      selectedCountryData = "No data for this country!"
+      selectedCountryData = ""
     }
     this.props.onCountrySelect(selectedCountryData)
   }
 
-  switchToPopulation() {
-    this.setState({ populationData: true })
+  countryColor (countryName, popScale) {
+    let allCountries = this.props.countryData;
+    let country = allCountries[countryName];
+    if (country) {
+      return popScale(country["Very happy"])}
+    else {return "#bcbcbc"}
+
+
   }
 
-  switchToRegions() {
-    this.setState({ populationData: false })
-  }
   render() {
+    var popScale = scaleLinear()
+        .domain([0, this.props.percentage/2, this.props.percentage])
+        .range(["#ff0000", "#ffff00", "#00ff00"])
     return (
       <div>
-        <div>
-          <button onClick={ this.switchToPopulation }>
-            { "Population data" }
-          </button>
-          <button onClick={ this.switchToRegions }>
-            { "World subregions" }
-          </button>
-        </div>
+
         <div style={wrapperStyles}>
           <ComposableMap
             projectionConfig={{
@@ -134,25 +86,19 @@ class Map extends Component {
                       round
                       style={{
                         default: {
-                          fill: this.state.populationData
-                            ? popScale(geography.properties.pop_est)
-                            : colorScale[subregions.indexOf(geography.properties.subregion)],
+                          fill: this.countryColor(geography.properties.name, popScale),
                           stroke: "#607D8B",
                           strokeWidth: 0.75,
                           outline: "none",
                         },
                         hover: {
-                          fill: this.state.populationData
-                            ? "#263238"
-                            : chroma(colorScale[subregions.indexOf(geography.properties.subregion)]).darken(0.5),
+                          fill: this.countryColor(geography.properties.name, popScale),
                           stroke: "#607D8B",
                           strokeWidth: 0.75,
                           outline: "none",
                         },
                         pressed: {
-                          fill: this.state.populationData
-                            ? "#263238"
-                            : chroma(colorScale[subregions.indexOf(geography.properties.subregion)]).brighten(0.5),
+                          fill: "blue",
                           stroke: "#607D8B",
                           strokeWidth: 0.75,
                           outline: "none",
