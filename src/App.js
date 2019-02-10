@@ -11,10 +11,10 @@ const areaoptions = [
 ]
 
 const waveoptions = [
-  { value: 'Wave6', label: 'Wave 6' },
-  { value: 'Wave5', label: 'Wave 5' },
-  { value: 'Wave4', label: 'Wave 4' },
-  { value: 'Wave3', label: 'Wave 3' },
+  { value: 'Wave6', label: 'Wave 6 (2010-2014)' },
+  { value: 'Wave5', label: 'Wave 5 (2005-2009)' },
+  { value: 'Wave4', label: 'Wave 4 (1999-2004)' },
+  { value: 'Wave3', label: 'Wave 3 (1995-1998)' },
 ]
 
 class App extends Component {
@@ -97,8 +97,8 @@ class App extends Component {
           <h3>Area</h3>
           <Select defaultValue={areaoptions[0]} onChange={this.handleAreaSelection} options={areaoptions}/>
         </div>
-        <Map countryData={this.state.countryData} percentage={this.state.maxPercentage} onCountrySelect={this.handleDataSelection} />
         <CountryInfo selectedCountry={this.state.selectedCountry} />
+        <Map countryData={this.state.countryData} percentage={this.state.maxPercentage} onCountrySelect={this.handleDataSelection} />
       </div>
     );
   }
