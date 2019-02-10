@@ -5,11 +5,16 @@ import * as d3 from 'd3'
 import CountryInfo from './components/CountryInfo';
 import Select from 'react-select'
 
+const areaoptions = [
+  { value: 'Happiness', label: 'Happiness in Life' },
+  { value: 'WorkImportance', label: 'Work Importance in Life' }
+]
+
 const waveoptions = [
   { value: 'Wave6', label: 'Wave 6' },
   { value: 'Wave5', label: 'Wave 5' },
   { value: 'Wave4', label: 'Wave 4' },
-  { value: 'Wave3', label: 'Wave 3' }
+  { value: 'Wave3', label: 'Wave 3' },
 ]
 
 class App extends Component {
@@ -39,7 +44,15 @@ class App extends Component {
 
   handleWaveSelection = (e) => {
     let wave = this.state.wave;
-    if (wave !== e.value){this.setState({wave: e.value, update: true})}
+    if (wave !== e.value){this.setState({wave: e.value, update: true, selectedCountry: {}})}
+    setTimeout(() => {
+      this.setState({update: false})
+    }, 100)
+  }
+
+  handleAreaSelection = (e) => {
+    let area = this.state.variable;
+    if (area !== e.value){this.setState({variable: e.value, update: true, selectedCountry: {}})}
     setTimeout(() => {
       this.setState({update: false})
     }, 100)
@@ -76,9 +89,13 @@ class App extends Component {
     }
     return (
       <div>
-        <div id="selectContainer">
+        <div class="select" id="waveContainer">
           <h3>{"Wave " + this.state.wave.substring(4,5)}</h3>
           <Select defaultValue={waveoptions[0]} onChange={this.handleWaveSelection} options={waveoptions}/>
+        </div>
+        <div class="select" id="areaContainer">
+          <h3>Area</h3>
+          <Select defaultValue={areaoptions[0]} onChange={this.handleAreaSelection} options={areaoptions}/>
         </div>
         <Map countryData={this.state.countryData} percentage={this.state.maxPercentage} onCountrySelect={this.handleDataSelection} />
         <CountryInfo selectedCountry={this.state.selectedCountry} />

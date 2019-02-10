@@ -43,10 +43,8 @@ class Map extends Component {
     let allCountries = this.props.countryData;
     let country = allCountries[countryName];
     if (country) {
-      return popScale(country["Very happy"])}
+      return popScale(country[Object.keys(country)[0]])}
     else {return "#bcbcbc"}
-
-
   }
 
   render() {
