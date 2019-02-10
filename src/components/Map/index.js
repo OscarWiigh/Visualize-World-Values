@@ -7,6 +7,7 @@ import {
 } from "react-simple-maps"
 import { scaleLinear } from "d3-scale"
 import ReactTooltip from "react-tooltip"
+import "./map.css"
 
 const wrapperStyles = {
   width: "100%",
@@ -23,7 +24,7 @@ class Map extends Component {
   componentDidMount() {
     setTimeout(() => {
       ReactTooltip.rebuild()
-    }, 100)
+    }, 300)
   }
 
 
@@ -52,8 +53,7 @@ class Map extends Component {
         .domain([0, this.props.percentage/2, this.props.percentage])
         .range(["#ff0000", "#ffff00", "#00ff00"])
     return (
-      <div>
-
+      <div id="container">
         <div style={wrapperStyles}>
           <ComposableMap
             projectionConfig={{
@@ -108,6 +108,11 @@ class Map extends Component {
             </ZoomableGroup>
           </ComposableMap>
           <ReactTooltip />
+          <div id="legend">
+              <p id="all">{this.props.percentage + "%"}</p>
+              <p id="half">{Math.round(this.props.percentage/2)+ "%"}</p>
+              <p id="zero">0%</p>
+          </div>
         </div>
       </div>
     )
