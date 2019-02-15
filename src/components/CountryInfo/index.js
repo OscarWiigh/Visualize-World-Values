@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import "./countryinfo.css"
 
 class CountryInfo extends Component {
   constructor() {
@@ -7,27 +8,31 @@ class CountryInfo extends Component {
 
   }
 
-  objtoelements (obj) {
+  objtoelements(obj) {
     let elarray = []
     for (const key of Object.keys(obj)) {
-      elarray.push(<p key={key}>{key + ": " + obj[key] + "%"}</p>);
-  }
+      elarray.push(<p className="textcountry" key={key}>{key + ": " + obj[key] + "%"}</p>);
+    }
+    elarray.pop()
     return elarray;
   }
 
   render() {
     let countrydata = this.props.selectedCountry;
 
-    if (Object.keys(countrydata).length !== 0) {
+    if (Object.keys(countrydata).length > 2) {
       return (
-        <div>
-          <h2>Country data</h2>
+        <div id="countrycontainer">
+          <h2 className="textcountry">{countrydata.Country}</h2>
           {this.objtoelements(countrydata)}
         </div>
       )
     }
     else {
-      return <p>No data!</p>
+      return <div id="countrycontainer">
+        <h2 className="textcountry">{countrydata.Country}</h2>
+        <p className="textcountry">No data!</p>
+      </div>
     }
   }
 }

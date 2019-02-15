@@ -2,8 +2,30 @@
   text-align: center;
 }
 
-.select {
+#supercontainer {
+  position: relative;
+}
+
+#toprow {
+  background-color: rgb(70,69,94);
+  width: 100%;
+  height: 70px;
+  display: flex;
+  flex-wrap: wrap;
   text-align: center;
-  width: 25%;
-  margin: 0 auto;
+}
+
+.select {
+  flex: 1 0 21%; /* explanation below */
+  margin: 5px;
+}
+
+.name {
+  color: rgb(87,208,182);
+  display: inline;
+}
+
+Select {
+  display: inline-block;
+  width: 100%;
 }

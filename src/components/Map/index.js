@@ -19,6 +19,36 @@ class Map extends Component {
   constructor() {
     super()
 
+    this.state = {
+      zoom: 1,
+    }
+
+    this.handleZoomIn = this.handleZoomIn.bind(this)
+    this.handleZoomOut = this.handleZoomOut.bind(this)
+  }
+  handleZoomIn() {
+   if (this.state.zoom != 3.814697265625) {
+    this.setState({
+      zoom: this.state.zoom * 1.25
+    })
+   }
+   else {
+    this.setState({
+      zoom: 3.814697265625
+    })
+   }
+  }
+  handleZoomOut() {
+    if (this.state.zoom != 1) {
+      this.setState({
+        zoom: this.state.zoom / 1.25
+      })
+     }
+     else {
+      this.setState({
+        zoom: 1
+      })
+     }
   }
 
   componentDidMount() {
@@ -33,9 +63,11 @@ class Map extends Component {
     let selectedCountryData;
     if (geodata[geography.properties.name]) {
       selectedCountryData = (geodata[geography.properties.name])
+      selectedCountryData.Country = geography.properties.name;
     }
     else {
-      selectedCountryData = ""
+      selectedCountryData = {}
+      selectedCountryData.Country = geography.properties.name;
     }
     this.props.onCountrySelect(selectedCountryData)
   }
@@ -54,6 +86,10 @@ class Map extends Component {
         .range(["#ff0000", "#ffff00", "#00ff00"])
     return (
       <div id="container">
+      <div id="buttoncontainer">
+            <div className="zoombuttons" onClick={ this.handleZoomIn }><p className="buttontext">+</p></div>
+            <div className="zoombuttons" onClick={ this.handleZoomOut }><p className="buttontext">-</p></div>
+          </div>
         <div style={wrapperStyles}>
           <ComposableMap
             projectionConfig={{
@@ -67,7 +103,7 @@ class Map extends Component {
               height: "auto",
             }}
             >
-            <ZoomableGroup center={[0,20]}>
+            <ZoomableGroup zoom={this.state.zoom} center={[0,20]}>
               <Geographies
                 geography={ "/world-50m-with-population.json" }
                 disableOptimization

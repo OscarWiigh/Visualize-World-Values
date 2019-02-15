@@ -42,18 +42,6 @@ class App extends Component {
     this.setState({ selectedCountry: data });
   }
 
-  detailedOptions = () => {
-    var arr = []
-    let url = process.env.PUBLIC_URL + "./data/" + this.state.variable + this.state.wave + '.csv'
-    d3.csv(url).then(res => {
-      let columns = Object.keys(res[0]).slice(1);
-      columns.forEach((row) => {
-        arr.push({value: row, label: row})
-      }
-    )
-  return arr})
-  }
-
   handleWaveSelection = (e) => {
     let wave = this.state.wave;
     if (wave !== e.value){this.setState({wave: e.value, update: true, selectedCountry: {}})}
@@ -100,21 +88,19 @@ class App extends Component {
       this.loadData()
     }
     return (
-      <div>
-        <div className="select" id="waveContainer">
-          <h3>Wave</h3>
-          <Select defaultValue={waveoptions[0]} onChange={this.handleWaveSelection} options={waveoptions}/>
-        </div>
+      <div id="supercontainer">
+        <div id="toprow">
+        <h3 className="select name">EXPLORE</h3>
         <div className="select" id="areaContainer">
-          <h3>Area</h3>
           <Select defaultValue={areaoptions[0]} onChange={this.handleAreaSelection} options={areaoptions}/>
         </div>
-        <div className="select" id="detailContainer">
-          <h3>Area</h3>
-          <Select defaultValue={areaoptions[0]} onChange={this.handleAreaSelection} options={this.detailedOptions()}/>
+          <h3 className="select name">DURING</h3>
+        <div className="select" id="waveContainer">
+          <Select defaultValue={waveoptions[0]} onChange={this.handleWaveSelection} options={waveoptions}/>
         </div>
-        <CountryInfo selectedCountry={this.state.selectedCountry} />
+      </div>
         <Map countryData={this.state.countryData} percentage={this.state.maxPercentage} onCountrySelect={this.handleDataSelection} />
+        <CountryInfo selectedCountry={this.state.selectedCountry} />
       </div>
     );
   }

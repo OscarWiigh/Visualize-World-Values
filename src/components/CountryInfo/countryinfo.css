@@ -1,0 +1,12 @@
+#countrycontainer {
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    background: white;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+.textcountry {
+    margin: 10px;
+}
