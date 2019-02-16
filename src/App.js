@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import Map from "./components/Map"
+import Chart from "./components/Chart"
 import * as d3 from 'd3'
 import CountryInfo from './components/CountryInfo';
 import Select from 'react-select'
-import AsyncSelect from 'react-select/lib/Async';
 
 const areaoptions = [
   { value: 'Happiness', label: 'Happiness in Life' },
@@ -116,6 +116,7 @@ class App extends Component {
     }
     return (
       <div id="supercontainer">
+      <Chart/>
         <div id="toprow">
           <h3 className="select name">EXPLORE</h3>
           <div className="select" id="areaContainer">
