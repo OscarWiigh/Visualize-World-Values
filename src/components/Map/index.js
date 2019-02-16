@@ -74,9 +74,10 @@ class Map extends Component {
 
   countryColor (countryName, popScale) {
     let allCountries = this.props.countryData;
+    let detail = this.props.countryDetail;
     let country = allCountries[countryName];
     if (country) {
-      return popScale(country[Object.keys(country)[0]])}
+      return popScale(country[detail])}
     else {return "#bcbcbc"}
   }
 

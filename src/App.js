@@ -4,6 +4,7 @@ import Map from "./components/Map"
 import * as d3 from 'd3'
 import CountryInfo from './components/CountryInfo';
 import Select from 'react-select'
+import AsyncSelect from 'react-select/lib/Async';
 
 const areaoptions = [
   { value: 'Happiness', label: 'Happiness in Life' },
@@ -27,6 +28,11 @@ class App extends Component {
     countryData: [],
     wave: 'Wave6',
     variable: 'Happiness',
+    detaillist: [{ value: "Very happy", label: "Very happy" },
+    { value: "Rather happy", label: "Rather happy" },
+    { value: "Not very happy", label: "Not very happy" },
+    { value: "Not at all happy", label: "Not at all happy" }, { value: "Others", label: "Others" }],
+    detail: 'Very happy',
     columns: [],
     selectedCountry: {},
     maxPercentage: 100,
@@ -44,17 +50,25 @@ class App extends Component {
 
   handleWaveSelection = (e) => {
     let wave = this.state.wave;
-    if (wave !== e.value){this.setState({wave: e.value, update: true, selectedCountry: {}})}
+    if (wave !== e.value) { this.setState({ wave: e.value, update: true, selectedCountry: {} }) }
     setTimeout(() => {
-      this.setState({update: false})
+      this.setState({ update: false })
+    }, 100)
+  }
+
+  handleDetailSelection = (e) => {
+    let detail = this.state.detail;
+    if (detail !== e.value) { this.setState({ detail: e.value, update: true, selectedCountry: {} }) }
+    setTimeout(() => {
+      this.setState({ update: false })
     }, 100)
   }
 
   handleAreaSelection = (e) => {
     let area = this.state.variable;
-    if (area !== e.value){this.setState({variable: e.value, update: true, selectedCountry: {}})}
+    if (area !== e.value) { this.setState({ variable: e.value, update: true, selectedCountry: {} }) }
     setTimeout(() => {
-      this.setState({update: false})
+      this.setState({ update: false })
     }, 100)
   }
 
@@ -75,31 +89,46 @@ class App extends Component {
           newRow[o] = parseInt(row[o])
         })
         data[country] = newRow
-        if (data[country][Object.keys(data[country])[0]] >= max) {
-          max = data[country][Object.keys(data[country])[0]]
+        if (data[country][this.state.detail] >= max) {
+          max = data[country][this.state.detail]
         }
       })
+      var detaillista = []
+      let detailsobj = data;
+      if (Object.keys(detailsobj).length > 0) {
+        for (var key in detailsobj) break;
+        Object.keys(detailsobj[key]).forEach(function (keynum) {
+          detaillista.push({ value: keynum, label: keynum });
+        });
+        this.setState({ detaillist: detaillista })
+      }
       this.setState({ countryData: data, maxPercentage: max })
     })
 
   }
   render() {
-    if(this.state.update) {
+    if (this.state.update) {
       this.loadData()
+
     }
+    console.log(this.state.detail)
     return (
       <div id="supercontainer">
         <div id="toprow">
-        <h3 className="select name">EXPLORE</h3>
-        <div className="select" id="areaContainer">
-          <Select defaultValue={areaoptions[0]} onChange={this.handleAreaSelection} options={areaoptions}/>
-        </div>
+          <h3 className="select name">EXPLORE</h3>
+          <div className="select" id="areaContainer">
+            <Select defaultValue={areaoptions[0]} onChange={this.handleAreaSelection} options={areaoptions} />
+          </div>
           <h3 className="select name">DURING</h3>
-        <div className="select" id="waveContainer">
-          <Select defaultValue={waveoptions[0]} onChange={this.handleWaveSelection} options={waveoptions}/>
+          <div className="select" id="waveContainer">
+            <Select defaultValue={waveoptions[0]} onChange={this.handleWaveSelection} options={waveoptions} />
+          </div>
+          <h3 className="select name">ATTRIBUTE</h3>
+          <div className="select" id="detailsContainer">
+            <Select defaultValue={this.state.detaillist[0]} onChange={this.handleDetailSelection} options={this.state.detaillist} />
+          </div>
         </div>
-      </div>
-        <Map countryData={this.state.countryData} percentage={this.state.maxPercentage} onCountrySelect={this.handleDataSelection} />
+        <Map countryDetail={this.state.detail} countryData={this.state.countryData} percentage={this.state.maxPercentage} onCountrySelect={this.handleDataSelection} />
         <CountryInfo selectedCountry={this.state.selectedCountry} />
       </div>
     );

@@ -9,14 +9,14 @@
 #toprow {
   background-color: rgb(70,69,94);
   width: 100%;
-  height: 70px;
+  height: 50px;
   display: flex;
   flex-wrap: wrap;
   text-align: center;
 }
 
 .select {
-  flex: 1 0 21%; /* explanation below */
+  flex: 1 0 0%; /* explanation below */
   margin: 5px;
 }
 
