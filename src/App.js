@@ -33,6 +33,7 @@ class App extends Component {
     { value: "Not very happy", label: "Not very happy" },
     { value: "Not at all happy", label: "Not at all happy" }, { value: "Others", label: "Others" }],
     detail: 'Very happy',
+    detailtest : [{ value: "Very happy", label: "Very happy" }],
     columns: [],
     selectedCountry: {},
     maxPercentage: 100,
@@ -58,7 +59,7 @@ class App extends Component {
 
   handleDetailSelection = (e) => {
     let detail = this.state.detail;
-    if (detail !== e.value) { this.setState({ detail: e.value, update: true, selectedCountry: {} }) }
+    if (detail !== e.value) { this.setState({ detail: e.value, detailtest: [{value: e.value, label:  e.value}], update: true, selectedCountry: {} }) }
     setTimeout(() => {
       this.setState({ update: false })
     }, 100)
@@ -67,8 +68,10 @@ class App extends Component {
   handleAreaSelection = (e) => {
     let area = this.state.variable;
     if (area !== e.value) { this.setState({ variable: e.value, update: true, selectedCountry: {} }) }
+    if (e.value == "WorkImportance") { this.setState({ detail: "Very important", detailtest: [{value: "Very important", label: "Very important"}] }) }
+    else if (e.value == "Happiness") { this.setState({ detail: "Very happy", detailtest: [{value: "Very happy", label: "Very happy"}] }) }
     setTimeout(() => {
-      this.setState({ update: false })
+      this.setState({ update: false})
     }, 100)
   }
 
@@ -111,7 +114,6 @@ class App extends Component {
       this.loadData()
 
     }
-    console.log(this.state.detail)
     return (
       <div id="supercontainer">
         <div id="toprow">
@@ -125,7 +127,7 @@ class App extends Component {
           </div>
           <h3 className="select name">ATTRIBUTE</h3>
           <div className="select" id="detailsContainer">
-            <Select defaultValue={this.state.detaillist[0]} onChange={this.handleDetailSelection} options={this.state.detaillist} />
+            <Select defaultValue={this.state.detaillist[0]} value={this.state.detailtest} onChange={this.handleDetailSelection} options={this.state.detaillist} />
           </div>
         </div>
         <Map countryDetail={this.state.detail} countryData={this.state.countryData} percentage={this.state.maxPercentage} onCountrySelect={this.handleDataSelection} />
