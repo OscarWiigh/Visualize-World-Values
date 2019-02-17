@@ -112,11 +112,10 @@ class App extends Component {
   render() {
     if (this.state.update) {
       this.loadData()
-
     }
     return (
       <div id="supercontainer">
-      <Chart/>
+      <Chart selectedCountry={"Sweden"} gapVar={"life_expectancy_years"} area={this.state.variable} detail={this.state.detail}/>
         <div id="toprow">
           <h3 className="select name">EXPLORE</h3>
           <div className="select" id="areaContainer">
