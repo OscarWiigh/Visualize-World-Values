@@ -20,7 +20,12 @@ const waveoptions = [
 
 const gapoptions = [
   { value: 'child_mortality', label: 'Child Mortality per 1000 births' },
-  { value: 'life_expectancy_years', label: 'Life expectancy in years' }
+  { value: 'life_expectancy_years', label: 'Life expectancy in years' },
+  { value: 'co2_emissions_tonnes_per_person', label: 'CO2 emissions tonnes/person' },
+  { value: 'income_per_person', label: 'Income/person (GDP/capita, PPP$, infl. adj.) ' },
+  { value: 'long_term_unemployment', label: 'Long term unemployment (% of pop.)' },
+  { value: 'children_per_woman', label: 'Number of children per woman' },
+  { value: 'hdi_human_development', label: 'Human Development Index' }
 ]
 
 class App extends Component {
@@ -137,22 +142,24 @@ class App extends Component {
     return (
       <div id="supercontainer">
         <div id="toprow">
-          <h3 className="select name">EXPLORE</h3>
+        <h3 className="select name"> </h3>
+          <h3 className="select name">YOU CAN EXPLORE</h3>
           <div className="select" id="areaContainer">
             <Select defaultValue={areaoptions[0]} onChange={this.handleAreaSelection} options={areaoptions} />
           </div>
-          <h3 className="select name">DURING</h3>
+          <h3 className="select name">DURING THE FOLLOWING</h3>
           <div className="select" id="waveContainer">
             <Select defaultValue={waveoptions[0]} onChange={this.handleWaveSelection} options={waveoptions} />
           </div>
-          <h3 className="select name">ATTRIBUTE</h3>
+          <h3 className="select name">WITH MAP ATTRIBUTE</h3>
           <div className="select" id="detailsContainer">
             <Select defaultValue={this.state.detaillist[0]} value={this.state.detailtest} onChange={this.handleDetailSelection} options={this.state.detaillist} />
           </div>
-          <h3 className="select name">GAPVAR</h3>
+          <h3 className="select name">AND COMPARE THAT WITH</h3>
           <div className="select" id="gapContainer">
             <Select defaultValue={gapoptions[1]} onChange={this.handleGapSelection} options={gapoptions} />
           </div>
+          <h3 className="select name"> </h3>
         </div>
         <div id="mapcontainer">
         <Map countryDetail={this.state.detail} countryData={this.state.countryData} percentage={this.state.maxPercentage} onCountrySelect={this.handleDataSelection} />

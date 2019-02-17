@@ -48,7 +48,7 @@ class Chart extends React.Component {
     d3.csv(url).then(res => {
       var data = [
         {
-          "date": "1998",
+          "date": "1995",
           "close": 0,
           "happ": 0
         },
@@ -197,7 +197,7 @@ class Chart extends React.Component {
     d3.csv(url).then(res => {
       var data = [
         {
-          "date": "1998",
+          "date": "1995",
           "close": 0,
           "happ": 0
         },
