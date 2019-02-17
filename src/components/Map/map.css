@@ -4,9 +4,9 @@
 
 #legend {
     text-align: left;
-    position: relative;
-    left: 100%;
-    top:-500px;
+    position: absolute;
+    top: 20px;
+    left: 0px;
     height: 150px;
     width: 15px;
     background: #00ff00; /* Old browsers */
@@ -36,9 +36,8 @@
 
 .zoombuttons {
     text-align: center;
-    margin-right: 10px;
+    margin-top: 10px;
     color: white;
-    display: inline-block;
     height: 35px;
     width: 35px;
     cursor: pointer;
@@ -61,8 +60,7 @@
   #buttoncontainer {
       text-align: right;
       position: absolute;
-      top: 10px;
-      right: 250px;
+      top: 200px;
   }
   /* Add a hover effect if you want */
   .zoombuttons:hover {

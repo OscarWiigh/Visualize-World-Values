@@ -23,7 +23,7 @@ class CountryInfo extends Component {
     if (Object.keys(countrydata).length > 2) {
       return (
         <div id="countrycontainer">
-          <h2 className="textcountry">{countrydata.Country}</h2>
+          <h2 className="countryTitle">{countrydata.Country}</h2>
           {this.objtoelements(countrydata)}
         </div>
       )

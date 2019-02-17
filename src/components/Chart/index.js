@@ -13,14 +13,11 @@ class Chart extends React.Component {
 
   componentDidMount() {
     const propsdata = this.props
-    this.drawChart(propsdata)
-    // setTimeout(() => {
-    //   this.updateChart()
-    // }, 2000);
+      this.drawChart(propsdata)
   }
   componentWillReceiveProps(propsdata) {
     if( propsdata !== this.props ) {
-      this.updateChart(propsdata)
+        this.updateChart(propsdata)
     }
   }
 
@@ -88,12 +85,14 @@ class Chart extends React.Component {
         res1.forEach((row1) => {
           if (row1.Country == propsdata.selectedCountry) {
             data[0]["happ"] = row1[propsdata.detail]
+            console.log(row1[propsdata.detail])
           }
         })
         d3.csv(url2).then(res2 => {
           res2.forEach((row2) => {
             if (row2.Country == propsdata.selectedCountry) {
               data[1]["happ"] = row2[propsdata.detail]
+              console.log(row2[propsdata.detail])
             }
           })
         })
@@ -101,6 +100,7 @@ class Chart extends React.Component {
           res3.forEach((row3) => {
             if (row3.Country == propsdata.selectedCountry) {
               data[2]["happ"] = row3[propsdata.detail]
+              console.log(row3[propsdata.detail])
             }
           })
         })
@@ -108,6 +108,7 @@ class Chart extends React.Component {
           res4.forEach((row4) => {
             if (row4.Country == propsdata.selectedCountry) {
               data[3]["happ"] = row4[propsdata.detail]
+              console.log(row4[propsdata.detail])
             }
           })
           data.forEach(function (d) {
@@ -121,14 +122,26 @@ class Chart extends React.Component {
     
           // Select the section we want to apply our changes to
           var svg = d3.select("#container");
+
+          var div = d3.select(".tooltip")
     
           svg.selectAll("circle")
             .data(data)
             .attr("r", function (d) { return d.happ; })
             .attr("cx", function (d) { return x(d.date); })
             .attr("cy", function (d) { return y(d.close); })
+            .on("mouseover", function(d) {		
+              div.transition()		
+                  .duration(200)		
+                  .style("opacity", .9);		
+              div	.html(propsdata.selectedCountry +", " +  propsdata.area + "<br/>" + "Year: " + d.date.getFullYear() + "<br/>"  + propsdata.gapVar + ": " + d.close + "<br/>"  + propsdata.detail + ": " + d.happ*2 + "%")	
+              })					
+          .on("mouseout", function(d) {		
+              div.transition()		
+                  .duration(500)		
+                  .style("opacity", 0);	
+          });
             
-    
           // Make the changes
           svg.transition().select(".line")   // change the line
             .duration(750)
@@ -268,9 +281,7 @@ class Chart extends React.Component {
               div.transition()		
                   .duration(200)		
                   .style("opacity", .9);		
-              div	.html(d.date + "<br/>"  + d.close)	
-                  .style("left", (d3.event.pageX) + "px")		
-                  .style("top", (d3.event.pageY - 28) + "px");	
+              div	.html(propsdata.selectedCountry +", " +  propsdata.area + "<br/>" + "Year: " + d.date.getFullYear() + "<br/>"  + propsdata.gapVar + ": " + d.close + "<br/>"  + propsdata.detail + ": " + d.happ*2 + "%")	
               })					
           .on("mouseout", function(d) {		
               div.transition()		
@@ -283,6 +294,13 @@ class Chart extends React.Component {
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis);
+
+            svg.append("text")             
+            .attr("transform",
+                  "translate(" + (width) + " ," + 
+                                 (height-10) + ")")
+            .style("text-anchor", "middle")
+            .text("Year");
     
           // Add the Y Axis
           svg.append("g")

@@ -1,12 +1,18 @@
 #countrycontainer {
-    position: absolute;
-    left: 10%;
-    top: 10%;
+    width: 50%;
+    margin-left: 50px;
     background: white;
     border: 1px solid gray;
     border-radius: 10px;
+    text-align: center;
 }
 
 .textcountry {
-    margin: 10px;
+    margin: 10px !important;
+    display: inline;
+    text-align: center;
+}
+
+.countryTitle{
+    text-align: center;
 }

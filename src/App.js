@@ -18,6 +18,11 @@ const waveoptions = [
   { value: 'Wave3', label: 'Wave 3 (1995-1998)' },
 ]
 
+const gapoptions = [
+  { value: 'child_mortality', label: 'Child Mortality per 1000 births' },
+  { value: 'life_expectancy_years', label: 'Life expectancy in years' }
+]
+
 class App extends Component {
 
   constructor(props) {
@@ -33,9 +38,16 @@ class App extends Component {
     { value: "Not very happy", label: "Not very happy" },
     { value: "Not at all happy", label: "Not at all happy" }, { value: "Others", label: "Others" }],
     detail: 'Very happy',
+    gapVar: "life_expectancy_years",
     detailtest : [{ value: "Very happy", label: "Very happy" }],
     columns: [],
-    selectedCountry: {},
+    selectedCountry: {
+      "Very happy": 40,
+      "Rather happy": 54,
+      "Not very happy": 4,
+      "Not at all happy": 0,
+      "Country": "Sweden"
+    },
     maxPercentage: 100,
     update: false
 
@@ -52,6 +64,14 @@ class App extends Component {
   handleWaveSelection = (e) => {
     let wave = this.state.wave;
     if (wave !== e.value) { this.setState({ wave: e.value, update: true, selectedCountry: {} }) }
+    setTimeout(() => {
+      this.setState({ update: false })
+    }, 100)
+  }
+
+  handleGapSelection = (e) => {
+    let gap = this.state.gapVar;
+    if (gap !== e.value) { this.setState({ gapVar: e.value, update: true }) }
     setTimeout(() => {
       this.setState({ update: false })
     }, 100)
@@ -113,9 +133,9 @@ class App extends Component {
     if (this.state.update) {
       this.loadData()
     }
+    console.log(this.state.selectedCountry)
     return (
       <div id="supercontainer">
-      <Chart selectedCountry={"Sweden"} gapVar={"life_expectancy_years"} area={this.state.variable} detail={this.state.detail}/>
         <div id="toprow">
           <h3 className="select name">EXPLORE</h3>
           <div className="select" id="areaContainer">
@@ -129,8 +149,15 @@ class App extends Component {
           <div className="select" id="detailsContainer">
             <Select defaultValue={this.state.detaillist[0]} value={this.state.detailtest} onChange={this.handleDetailSelection} options={this.state.detaillist} />
           </div>
+          <h3 className="select name">GAPVAR</h3>
+          <div className="select" id="gapContainer">
+            <Select defaultValue={gapoptions[1]} onChange={this.handleGapSelection} options={gapoptions} />
+          </div>
         </div>
+        <div id="mapcontainer">
         <Map countryDetail={this.state.detail} countryData={this.state.countryData} percentage={this.state.maxPercentage} onCountrySelect={this.handleDataSelection} />
+        <Chart selectedCountry={this.state.selectedCountry.Country} gapVar={this.state.gapVar} area={this.state.variable} detail={this.state.detail}/>
+        </div>
         <CountryInfo selectedCountry={this.state.selectedCountry} />
       </div>
     );

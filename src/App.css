@@ -6,6 +6,10 @@
   position: relative;
 }
 
+#mapcontainer {
+  text-align: left;
+}
+
 #toprow {
   background-color: rgb(70,69,94);
   width: 100%;

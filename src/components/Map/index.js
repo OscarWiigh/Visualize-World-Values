@@ -10,9 +10,10 @@ import ReactTooltip from "react-tooltip"
 import "./map.css"
 
 const wrapperStyles = {
-  width: "100%",
+  width: "50%",
   maxWidth: 980,
-  margin: "0 auto",
+  marginLeft: "50px",
+  display: "inline-block"
 }
 
 class Map extends Component {
