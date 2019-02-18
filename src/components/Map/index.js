@@ -13,7 +13,11 @@ const wrapperStyles = {
   width: "50%",
   maxWidth: 980,
   marginLeft: "50px",
-  display: "inline-block"
+  marginTop: "30px",
+  display: "inline-block",
+  background: "white",
+  boxShadow: "0 6px 15px rgba(36,37,38,0.08)",
+  borderRadius: "16px"
 }
 
 class Map extends Component {

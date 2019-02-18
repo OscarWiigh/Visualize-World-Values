@@ -25,7 +25,8 @@ const gapoptions = [
   { value: 'income_per_person', label: 'Income/person (GDP/capita, PPP$, infl. adj.) ' },
   { value: 'long_term_unemployment', label: 'Long term unemployment (% of pop.)' },
   { value: 'children_per_woman', label: 'Number of children per woman' },
-  { value: 'hdi_human_development', label: 'Human Development Index' }
+  { value: 'hdi_human_development', label: 'Human Development Index' },
+  { value: 'population_growth_annual_percent', label: 'Annual population growth/year (%)' }
 ]
 
 class App extends Component {
@@ -142,7 +143,6 @@ class App extends Component {
     return (
       <div id="supercontainer">
         <div id="toprow">
-        <h3 className="select name"> </h3>
           <h3 className="select name">YOU CAN EXPLORE</h3>
           <div className="select" id="areaContainer">
             <Select defaultValue={areaoptions[0]} onChange={this.handleAreaSelection} options={areaoptions} />
@@ -159,7 +159,7 @@ class App extends Component {
           <div className="select" id="gapContainer">
             <Select defaultValue={gapoptions[1]} onChange={this.handleGapSelection} options={gapoptions} />
           </div>
-          <h3 className="select name"> </h3>
+          <h3 className="select name">IN THE GRAPH BELOW</h3>
         </div>
         <div id="mapcontainer">
         <Map countryDetail={this.state.detail} countryData={this.state.countryData} percentage={this.state.maxPercentage} onCountrySelect={this.handleDataSelection} />

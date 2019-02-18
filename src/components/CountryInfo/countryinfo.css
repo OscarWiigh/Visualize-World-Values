@@ -2,8 +2,8 @@
     width: 50%;
     margin-left: 50px;
     background: white;
-    border: 1px solid gray;
-    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(36,37,38,0.08);
+    border-radius: 16px;
     text-align: center;
 }
 
