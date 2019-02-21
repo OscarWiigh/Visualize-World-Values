@@ -151,11 +151,10 @@ class App extends Component {
     if (this.state.update) {
       this.loadData()
     }
-    console.log(this.state.selectedCountry)
     return (
       <div id="supercontainer">
         <div id="toprow">
-          <h3 className="select name">YOU CAN EXPLORE</h3>
+          <h3 className="select name">YOU CAN NOW EXPLORE</h3>
           <div className="select" id="areaContainer">
             <Select defaultValue={areaoptions[0]} onChange={this.handleAreaSelection} options={areaoptions} />
           </div>
@@ -173,11 +172,13 @@ class App extends Component {
           </div>
           <h3 className="select name">IN THE GRAPH BELOW</h3>
         </div>
-        <div id="mapcontainer">
         <Map countryDetail={this.state.detail} countryData={this.state.countryData} percentage={this.state.maxPercentage} onCountrySelect={this.handleDataSelection} />
-        </div>
         <Chart selectedCountry={this.state.selectedCountry.Country} gapVar={this.state.gapVar} area={this.state.variable} detail={this.state.detail}/>
         <CountryInfo selectedCountry={this.state.selectedCountry} />
+        <div id="chartinfo">
+        <h2 className="chartinfoTitle">{this.state.variable} vs {this.state.gapVar.replace(/_/g, " ").replace(/\b\w/g, function(l){ return l.toUpperCase() })}</h2>
+        <p className="chartinfotext">Selected Country: {this.state.selectedCountry.Country}</p>
+      </div>
       </div>
     );
   }

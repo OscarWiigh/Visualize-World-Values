@@ -13,19 +13,19 @@ class Chart extends React.Component {
 
   componentDidMount() {
     const propsdata = this.props
-      this.drawChart(propsdata)
+    this.drawChart(propsdata)
   }
   componentWillReceiveProps(propsdata) {
-    if( propsdata !== this.props ) {
-        this.updateChart(propsdata)
+    if (propsdata !== this.props) {
+      this.updateChart(propsdata)
     }
   }
 
 
   updateChart(propsdata) {
     var margin = { top: 30, right: 20, bottom: 30, left: 50 },
-      width = 600 - margin.left - margin.right,
-      height = 270 - margin.top - margin.bottom;
+      width = 980 - margin.left - margin.right,
+      height = 658 - margin.top - margin.bottom;
     // Parse the date / time
     var parseDate = d3.timeParse("%Y");
 
@@ -119,31 +119,31 @@ class Chart extends React.Component {
           // Scale the range of the data again 
           x.domain(d3.extent(data, function (d) { return d.date; }));
           y.domain([d3.min(data, function (d) { return d.close * 0.99; }), d3.max(data, function (d) { return d.close; })]);
-    
+
           // Select the section we want to apply our changes to
           var svg = d3.select("#containerchart");
 
           var div = d3.select(".tooltip")
-    
+
           svg.selectAll("circle")
             .data(data)
             .attr("r", function (d) { return d.happ; })
             .attr("cx", function (d) { return x(d.date); })
             .attr("cy", function (d) { return y(d.close); })
-            .on("mouseover", function(d) {		
-              div.transition()		
-                  .duration(200)		
-                  .style("opacity", .9);		
-              div	.html(propsdata.selectedCountry +", " +  propsdata.area + "<br/>" + "Year: " + d.date.getFullYear() + "<br/>"  + propsdata.gapVar + ": " + d.close + "<br/>"  + propsdata.detail + ": " + d.happ*2 + "%")	
-              .style("left", (d3.event.pageX) + "px")     
-              .style("top", (d3.event.pageY - 28) + "px"); 
-              })					
-          .on("mouseout", function(d) {		
-              div.transition()		
-                  .duration(500)		
-                  .style("opacity", 0);	
-          });
-            
+            .on("mouseover", function (d) {
+              div.transition()
+                .duration(200)
+                .style("opacity", .9);
+              div.html(propsdata.selectedCountry + ", " + propsdata.area + "<br/>" + "Year: " + d.date.getFullYear() + "<br/>" + propsdata.gapVar + ": " + d.close + "<br/>" + propsdata.detail + ": " + d.happ * 2 + "%")
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on("mouseout", function (d) {
+              div.transition()
+                .duration(500)
+                .style("opacity", 0);
+            });
+
           // Make the changes
           svg.transition().select(".line")   // change the line
             .duration(750)
@@ -163,12 +163,12 @@ class Chart extends React.Component {
 
   drawChart(propsdata) {
     var margin = { top: 30, right: 20, bottom: 30, left: 50 },
-      width = 600 - margin.left - margin.right,
-      height = 270 - margin.top - margin.bottom;
-    
-      var div = d3.select("#containerchart").append("div")	
-    .attr("class", "tooltip")				
-    .style("opacity", 0);
+      width = 980 - margin.left - margin.right,
+      height = 658 - margin.top - margin.bottom;
+
+    var div = d3.select("#containerchart").append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
 
     // Parse the date / time
     var parseDate = d3.timeParse("%Y");
@@ -189,6 +189,9 @@ class Chart extends React.Component {
 
     var svg = d3.select("#containerchart")
       .append("svg")
+      .attr("id", "chartid")
+      .attr("preserveAspectRatio", "xMidYMid")
+      .attr("viewBox", "0 0 980 658")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -263,54 +266,63 @@ class Chart extends React.Component {
             d.close = +d.close;
             d.happ = d.happ / 2;
           });
-    
+
           // Scale the range of the data
           x.domain(d3.extent(data, function (d) { return d.date; }));
           y.domain([d3.min(data, function (d) { return d.close * 0.99; }), d3.max(data, function (d) { return d.close; })]);
-    
+
           // Add the valueline path.
           svg.append("path")
             .attr("class", "line")
             .attr("d", valueline(data));
-    
+
           svg.selectAll("circle")
             .data(data)
             .enter().append("circle")
             .attr("r", function (d) { return d.happ; })
             .attr("cx", function (d) { return x(d.date); })
             .attr("cy", function (d) { return y(d.close); })
-            .on("mouseover", function(d) {		
-              div.transition()		
-                  .duration(200)		
-                  .style("opacity", .9);		
-              div	.html(propsdata.selectedCountry +", " +  propsdata.area + "<br/>" + "Year: " + d.date.getFullYear() + "<br/>"  + propsdata.gapVar + ": " + d.close + "<br/>"  + propsdata.detail + ": " + d.happ*2 + "%")
-              .style("left", (d3.event.pageX) + "px")     
-            .style("top", (d3.event.pageY - 28) + "px"); 
-              })
-              				
-          .on("mouseout", function(d) {		
-              div.transition()		
-                  .duration(500)		
-                  .style("opacity", 0);	
-          });
-    
+            .on("mouseover", function (d) {
+              div.transition()
+                .duration(200)
+                .style("opacity", .9);
+              div.html(propsdata.selectedCountry + ", " + propsdata.area + "<br/>" + "Year: " + d.date.getFullYear() + "<br/>" + propsdata.gapVar + ": " + d.close + "<br/>" + propsdata.detail + ": " + d.happ * 2 + "%")
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+
+            .on("mouseout", function (d) {
+              div.transition()
+                .duration(500)
+                .style("opacity", 0);
+            });
+
           // Add the X Axis
           svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis);
 
-            svg.append("text")             
+          svg.append("text")
+          .attr("class", "labels")
             .attr("transform",
-                  "translate(" + (width) + " ," + 
-                                 (height-10) + ")")
+              "translate(" + (width-5) + " ," +
+              (height - 10) + ")")
             .style("text-anchor", "middle")
             .text("Year");
-    
+
           // Add the Y Axis
           svg.append("g")
             .attr("class", "y axis")
             .call(yAxis);
+
+          // text label for the y axis
+          svg.append("text")
+          .attr("class", "labels")
+          .attr("transform",
+              "translate(" + (5) + " ," +
+              (5) + ")")
+            .text("Value");
         })
       })
     })

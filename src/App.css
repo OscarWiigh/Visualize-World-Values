@@ -6,10 +6,6 @@
   position: relative;
 }
 
-#mapcontainer {
-  text-align: left;
-}
-
 #toprow {
   background-color: rgb(70,69,94);
   border-bottom: rgb(104,110,113) solid 1px;
@@ -50,4 +46,26 @@
 Select {
   display: inline-block;
   width: 100%;
+}
+
+#chartinfo {
+  margin-top: 20px;
+  display:inline-block;
+  width: 42%;
+  margin-left: 30px;
+  background: white;
+  box-shadow: 0 6px 15px rgba(36,37,38,0.08);
+  border-radius: 16px;
+  text-align: center;
+  border-bottom: 4px solid rgb(242,242,242);
+}
+
+.chartinfotext {
+  margin: 10px !important;
+  display: inline;
+  text-align: center;
+}
+
+.chartinfoTitle{
+  text-align: center;
 }

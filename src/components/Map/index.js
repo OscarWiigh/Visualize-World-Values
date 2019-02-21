@@ -10,7 +10,7 @@ import ReactTooltip from "react-tooltip"
 import "./map.css"
 
 const wrapperStyles = {
-  width: "50%",
+  width: "100%",
   maxWidth: 980,
   marginLeft: "50px",
   marginTop: "30px",
