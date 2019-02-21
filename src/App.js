@@ -8,7 +8,13 @@ import Select from 'react-select'
 
 const areaoptions = [
   { value: 'Happiness', label: 'Happiness in Life' },
-  { value: 'WorkImportance', label: 'Work Importance in Life' }
+  { value: 'WorkImportance', label: 'Work Importance in Life' },
+  { value: 'LeisureImportance', label: 'Leisure Importance in Life' },
+  { value: 'FamilyImportance', label: 'Family Importance in Life' },
+  { value: 'ReligionImportance', label: 'Religion Importance in Life' },
+  { value: 'SubjectiveHealth', label: 'Subjective state of health' },
+  { value: 'TrustInPeople', label: 'Trust in people' },
+  { value: 'MostImportant', label: 'What is most important (of given options)?' }
 ]
 
 const waveoptions = [
@@ -95,7 +101,13 @@ class App extends Component {
     let area = this.state.variable;
     if (area !== e.value) { this.setState({ variable: e.value, update: true, selectedCountry: {} }) }
     if (e.value == "WorkImportance") { this.setState({ detail: "Very important", detailtest: [{value: "Very important", label: "Very important"}] }) }
-    else if (e.value == "Happiness") { this.setState({ detail: "Very happy", detailtest: [{value: "Very happy", label: "Very happy"}] }) }
+    if (e.value == "LeisureImportance") { this.setState({ detail: "Very important", detailtest: [{value: "Very important", label: "Very important"}] }) }
+    if (e.value == "FamilyImportance") { this.setState({ detail: "Rather important", detailtest: [{value: "Rather important", label: "Rather important"}] }) }
+    if (e.value == "ReligionImportance") { this.setState({ detail: "Very important", detailtest: [{value: "Very important", label: "Very important"}] }) }
+    if (e.value == "SubjectiveHealth") { this.setState({ detail: "Very good", detailtest: [{value: "Very good", label: "Very good"}] }) }
+    if (e.value == "Happiness") { this.setState({ detail: "Very happy", detailtest: [{value: "Very happy", label: "Very happy"}] }) }
+    if (e.value == 'TrustInPeople') { this.setState({ detail: "Most people can be trusted", detailtest: [{value: "Most people can be trusted", label: "Most people can be trusted"}] }) }
+    if (e.value == 'MostImportant') { this.setState({ detail: "A stable economy", detailtest: [{value: "A stable economy", label: "A stable economy"}] }) }
     setTimeout(() => {
       this.setState({ update: false})
     }, 100)
@@ -163,8 +175,8 @@ class App extends Component {
         </div>
         <div id="mapcontainer">
         <Map countryDetail={this.state.detail} countryData={this.state.countryData} percentage={this.state.maxPercentage} onCountrySelect={this.handleDataSelection} />
-        <Chart selectedCountry={this.state.selectedCountry.Country} gapVar={this.state.gapVar} area={this.state.variable} detail={this.state.detail}/>
         </div>
+        <Chart selectedCountry={this.state.selectedCountry.Country} gapVar={this.state.gapVar} area={this.state.variable} detail={this.state.detail}/>
         <CountryInfo selectedCountry={this.state.selectedCountry} />
       </div>
     );

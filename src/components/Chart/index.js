@@ -121,7 +121,7 @@ class Chart extends React.Component {
           y.domain([d3.min(data, function (d) { return d.close * 0.99; }), d3.max(data, function (d) { return d.close; })]);
     
           // Select the section we want to apply our changes to
-          var svg = d3.select("#container");
+          var svg = d3.select("#containerchart");
 
           var div = d3.select(".tooltip")
     
@@ -166,7 +166,7 @@ class Chart extends React.Component {
       width = 600 - margin.left - margin.right,
       height = 270 - margin.top - margin.bottom;
     
-      var div = d3.select("#container").append("div")	
+      var div = d3.select("#containerchart").append("div")	
     .attr("class", "tooltip")				
     .style("opacity", 0);
 
@@ -187,7 +187,7 @@ class Chart extends React.Component {
       .x(function (d) { return x(d.date); })
       .y(function (d) { return y(d.close); });
 
-    var svg = d3.select("#container")
+    var svg = d3.select("#containerchart")
       .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -318,7 +318,7 @@ class Chart extends React.Component {
   }
   render() {
     return (
-      <div id="container">
+      <div id="containerchart">
       </div>
 
     );
