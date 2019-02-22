@@ -42,10 +42,10 @@ circle {
 
 
 div.tooltip {	
-    position: absolute;			
+    position: absolute;		
     text-align: center;			
     width: 150px;					
-    height: 55px;					
+    height: 70px;					
     padding: 2px;				
     font: 12px sans-serif;		
     background: lightsteelblue;	

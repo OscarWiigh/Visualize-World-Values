@@ -1,6 +1,7 @@
 import React from "react"
 import "./chart.css";
 import * as d3 from 'd3';
+import { utcMinute } from "d3";
 
 
 class Chart extends React.Component {
@@ -21,8 +22,18 @@ class Chart extends React.Component {
     }
   }
 
+  scaleRadius(variable, min, max) {
+    if(min > 0 && max > 0) {
+      const radius = 30*(variable-min)/(max-min);
+      return radius
+    }
+    else return variable
+
+  }
+
 
   updateChart(propsdata) {
+    let this2 = this;
     var margin = { top: 30, right: 20, bottom: 30, left: 50 },
       width = 980 - margin.left - margin.right,
       height = 658 - margin.top - margin.bottom;
@@ -127,16 +138,16 @@ class Chart extends React.Component {
 
           svg.selectAll("circle")
             .data(data)
-            .attr("r", function (d) { return d.happ; })
+            .attr("r", function (d) { return this2.scaleRadius(d.happ, d3.min(data, function (d) { return d.happ}), d3.max(data, function (d) { return d.happ})) })
             .attr("cx", function (d) { return x(d.date); })
             .attr("cy", function (d) { return y(d.close); })
             .on("mouseover", function (d) {
               div.transition()
                 .duration(200)
                 .style("opacity", .9);
-              div.html(propsdata.selectedCountry + ", " + propsdata.area + "<br/>" + "Year: " + d.date.getFullYear() + "<br/>" + propsdata.gapVar + ": " + d.close + "<br/>" + propsdata.detail + ": " + d.happ * 2 + "%")
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
+              div.html(propsdata.selectedCountry + ", " + propsdata.area + "<br/>" + "Year: " + d.date.getFullYear() + "<br/>" + propsdata.gapVar.replace(/_/g, " ").replace(/\b\w/g, function(l){ return l.toUpperCase() }) + ": " + d.close + "<br/>" + propsdata.detail + ": " + d.happ * 2 + "%")
+                .style("left", (d3.event.pageX-85) + "px")
+                .style("top", (d3.event.pageY + 10) + "px");
             })
             .on("mouseout", function (d) {
               div.transition()
@@ -154,6 +165,8 @@ class Chart extends React.Component {
           svg.transition().select(".y.axis") // change the y axis
             .duration(750)
             .call(yAxis);
+            svg.select("#ytext") // change the y axis
+            .text(propsdata.gapVar.replace(/_/g, " ").replace(/\b\w/g, function(l){ return l.toUpperCase() }));
         })
       })
 
@@ -162,6 +175,7 @@ class Chart extends React.Component {
   }
 
   drawChart(propsdata) {
+    let this2 = this;
     var margin = { top: 30, right: 20, bottom: 30, left: 50 },
       width = 980 - margin.left - margin.right,
       height = 658 - margin.top - margin.bottom;
@@ -279,16 +293,16 @@ class Chart extends React.Component {
           svg.selectAll("circle")
             .data(data)
             .enter().append("circle")
-            .attr("r", function (d) { return d.happ; })
+            .attr("r", function (d) { return this2.scaleRadius(d.happ, d3.min(data, function (d) { return d.happ}), d3.max(data, function (d) { return d.happ})) })
             .attr("cx", function (d) { return x(d.date); })
             .attr("cy", function (d) { return y(d.close); })
             .on("mouseover", function (d) {
               div.transition()
                 .duration(200)
                 .style("opacity", .9);
-              div.html(propsdata.selectedCountry + ", " + propsdata.area + "<br/>" + "Year: " + d.date.getFullYear() + "<br/>" + propsdata.gapVar + ": " + d.close + "<br/>" + propsdata.detail + ": " + d.happ * 2 + "%")
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
+              div.html(propsdata.selectedCountry + ", " + propsdata.area + "<br/>" + "Year: " + d.date.getFullYear() + "<br/>" + propsdata.gapVar.replace(/_/g, " ").replace(/\b\w/g, function(l){ return l.toUpperCase() }) + ": " + d.close + "<br/>" + propsdata.detail + ": " + d.happ * 2 + "%")
+                .style("left", (d3.event.pageX-85) + "px")
+                .style("top", (d3.event.pageY + 10) + "px");
             })
 
             .on("mouseout", function (d) {
@@ -319,10 +333,11 @@ class Chart extends React.Component {
           // text label for the y axis
           svg.append("text")
           .attr("class", "labels")
+          .attr("id", "ytext")
           .attr("transform",
               "translate(" + (5) + " ," +
               (5) + ")")
-            .text("Value");
+            .text(propsdata.gapVar.replace(/_/g, " ").replace(/\b\w/g, function(l){ return l.toUpperCase() }));
         })
       })
     })

@@ -176,8 +176,10 @@ class App extends Component {
         <Chart selectedCountry={this.state.selectedCountry.Country} gapVar={this.state.gapVar} area={this.state.variable} detail={this.state.detail}/>
         <CountryInfo selectedCountry={this.state.selectedCountry} />
         <div id="chartinfo">
-        <h2 className="chartinfoTitle">{this.state.variable} vs {this.state.gapVar.replace(/_/g, " ").replace(/\b\w/g, function(l){ return l.toUpperCase() })}</h2>
-        <p className="chartinfotext">Selected Country: {this.state.selectedCountry.Country}</p>
+        <h2 className="chartinfoTitle">{this.state.variable} ({this.state.detail}) vs. {this.state.gapVar.replace(/_/g, " ").replace(/\b\w/g, function(l){ return l.toUpperCase() })}</h2>
+        <div id="questionmark">?</div>
+        <span className="tooltiptextnew">Bubble size represent percentages of a selected world value (such as 30% very happy) while the y-axis represents gapminder data (such as 83.2 life expectancy)</span>
+        <p className="chartinfotext">Selected Country: {this.state.selectedCountry.Country}, 1995-2014</p>
       </div>
       </div>
     );

@@ -68,4 +68,37 @@ Select {
 
 .chartinfoTitle{
   text-align: center;
+  display:inline-block;
+  width: 95%
+}
+
+#questionmark{
+    display: inline-block;
+    cursor: pointer;
+    width: 4%;
+    margin-right: 2px;
+    vertical-align: 77%;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid rgb(52, 52, 52);
+    border-radius: 30px;
+    color: rgb(52, 52, 52)
+}
+
+.tooltiptextnew {
+  visibility: hidden;
+  width: 400px;
+  background-color: rgb(111, 104, 122);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  position: absolute;
+  right: 10%;
+  bottom: 22%
+}
+
+#questionmark:hover + .tooltiptextnew {
+  visibility: visible;
 }

@@ -151,7 +151,7 @@ class Map extends Component {
           </ComposableMap>
           <ReactTooltip />
           <div id="legend">
-              <span class="tooltiptext">A legend describing the color mapping of the chart</span>
+              <span className="tooltiptext">A legend describing the color mapping of the chart</span>
               <p id="all">{this.props.percentage + "%"}</p>
               <p id="half">{Math.round(this.props.percentage/2)+ "%"}</p>
               <p id="zero">0%</p>
