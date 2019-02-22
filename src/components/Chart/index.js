@@ -128,7 +128,7 @@ class Chart extends React.Component {
             d.happ = d.happ / 2;
           });
           // Scale the range of the data again 
-          x.domain(d3.extent(data, function (d) { return d.date; }));
+          x.domain([new Date('1993-01-01'), new Date('2016-01-01')]);
           y.domain([d3.min(data, function (d) { return d.close * 0.99; }), d3.max(data, function (d) { return d.close; })]);
 
           // Select the section we want to apply our changes to
@@ -282,7 +282,7 @@ class Chart extends React.Component {
           });
 
           // Scale the range of the data
-          x.domain(d3.extent(data, function (d) { return d.date; }));
+          x.domain([new Date('1993-01-01'), new Date('2016-01-01')]);
           y.domain([d3.min(data, function (d) { return d.close * 0.99; }), d3.max(data, function (d) { return d.close; })]);
 
           // Add the valueline path.
