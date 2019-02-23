@@ -174,7 +174,7 @@ class App extends Component {
         </div>
         <Map countryDetail={this.state.detail} countryData={this.state.countryData} percentage={this.state.maxPercentage} onCountrySelect={this.handleDataSelection} />
         <Chart selectedCountry={this.state.selectedCountry.Country} gapVar={this.state.gapVar} area={this.state.variable} detail={this.state.detail}/>
-        <CountryInfo selectedCountry={this.state.selectedCountry} />
+        <CountryInfo selectedCountry={this.state.selectedCountry} wave={this.state.wave} />
         <div id="chartinfo">
         <h2 className="chartinfoTitle">{this.state.variable} ({this.state.detail}) vs. {this.state.gapVar.replace(/_/g, " ").replace(/\b\w/g, function(l){ return l.toUpperCase() })}</h2>
         <div id="questionmark">?</div>

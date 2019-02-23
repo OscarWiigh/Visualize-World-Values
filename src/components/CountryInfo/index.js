@@ -31,7 +31,7 @@ class CountryInfo extends Component {
     else {
       return <div id="countrycontainer">
         <h2 className="textcountry">{countrydata.Country}</h2>
-        <p className="textcountry">No data!</p>
+        <p className="textcountry">No data during {this.props.wave.substr(0,4) + " " + this.props.wave.substr(4,5) }!</p>
       </div>
     }
   }

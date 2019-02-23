@@ -22,8 +22,14 @@ class Chart extends React.Component {
   }
 
   scaleRadius(variable, min, max) {
+    if (variable + max + min > 0) {
       const radius = (((40-10)*(variable-min))/(max-min)) + 10
       return radius
+    }
+    else {
+      const radius=0
+      return radius
+    }
 
   }
 
