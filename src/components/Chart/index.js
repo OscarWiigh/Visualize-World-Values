@@ -1,7 +1,6 @@
 import React from "react"
 import "./chart.css";
 import * as d3 from 'd3';
-import { utcMinute } from "d3";
 
 
 class Chart extends React.Component {
@@ -23,11 +22,8 @@ class Chart extends React.Component {
   }
 
   scaleRadius(variable, min, max) {
-    if(min > 0 && max > 0) {
-      const radius = 30*(variable-min)/(max-min);
+      const radius = (((40-10)*(variable-min))/(max-min)) + 10
       return radius
-    }
-    else return variable
 
   }
 
@@ -96,14 +92,12 @@ class Chart extends React.Component {
         res1.forEach((row1) => {
           if (row1.Country == propsdata.selectedCountry) {
             data[0]["happ"] = row1[propsdata.detail]
-            console.log(row1[propsdata.detail])
           }
         })
         d3.csv(url2).then(res2 => {
           res2.forEach((row2) => {
             if (row2.Country == propsdata.selectedCountry) {
               data[1]["happ"] = row2[propsdata.detail]
-              console.log(row2[propsdata.detail])
             }
           })
         })
@@ -111,7 +105,6 @@ class Chart extends React.Component {
           res3.forEach((row3) => {
             if (row3.Country == propsdata.selectedCountry) {
               data[2]["happ"] = row3[propsdata.detail]
-              console.log(row3[propsdata.detail])
             }
           })
         })
@@ -119,7 +112,6 @@ class Chart extends React.Component {
           res4.forEach((row4) => {
             if (row4.Country == propsdata.selectedCountry) {
               data[3]["happ"] = row4[propsdata.detail]
-              console.log(row4[propsdata.detail])
             }
           })
           data.forEach(function (d) {
