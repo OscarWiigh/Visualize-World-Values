@@ -57,7 +57,7 @@ class Chart extends React.Component {
       .y(function (d) { return y(d.close); });
 
     // Get the data again
-    let url = process.env.PUBLIC_URL + "./data/" + propsdata.gapVar + '.csv'
+    let url = process.env.PUBLIC_URL + "/data/" + propsdata.gapVar + '.csv'
     d3.csv(url).then(res => {
       var data = [
         {
@@ -90,10 +90,10 @@ class Chart extends React.Component {
 
         }
       })
-      let url1 = process.env.PUBLIC_URL + "./data/" + propsdata.area + "Wave3" + '.csv'
-      let url2 = process.env.PUBLIC_URL + "./data/" + propsdata.area + "Wave4" + '.csv'
-      let url3 = process.env.PUBLIC_URL + "./data/" + propsdata.area + "Wave5" + '.csv'
-      let url4 = process.env.PUBLIC_URL + "./data/" + propsdata.area + "Wave6" + '.csv'
+      let url1 = process.env.PUBLIC_URL + "/data/" + propsdata.area + "Wave3" + '.csv'
+      let url2 = process.env.PUBLIC_URL + "/data/" + propsdata.area + "Wave4" + '.csv'
+      let url3 = process.env.PUBLIC_URL + "/data/" + propsdata.area + "Wave5" + '.csv'
+      let url4 = process.env.PUBLIC_URL + "/data/" + propsdata.area + "Wave6" + '.csv'
       d3.csv(url1).then(res1 => {
         res1.forEach((row1) => {
           if (row1.Country == propsdata.selectedCountry) {
@@ -210,7 +210,7 @@ class Chart extends React.Component {
       .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
-    let url = process.env.PUBLIC_URL + "./data/" + propsdata.gapVar + '.csv'
+    let url = process.env.PUBLIC_URL + "/data/" + propsdata.gapVar + '.csv'
     d3.csv(url).then(res => {
       var data = [
         {
@@ -243,10 +243,10 @@ class Chart extends React.Component {
 
         }
       })
-      let url1 = process.env.PUBLIC_URL + "./data/" + propsdata.area + "Wave3" + '.csv'
-      let url2 = process.env.PUBLIC_URL + "./data/" + propsdata.area + "Wave4" + '.csv'
-      let url3 = process.env.PUBLIC_URL + "./data/" + propsdata.area + "Wave5" + '.csv'
-      let url4 = process.env.PUBLIC_URL + "./data/" + propsdata.area + "Wave6" + '.csv'
+      let url1 = process.env.PUBLIC_URL + "/data/" + propsdata.area + "Wave3" + '.csv'
+      let url2 = process.env.PUBLIC_URL + "/data/" + propsdata.area + "Wave4" + '.csv'
+      let url3 = process.env.PUBLIC_URL + "/data/" + propsdata.area + "Wave5" + '.csv'
+      let url4 = process.env.PUBLIC_URL + "/data/" + propsdata.area + "Wave6" + '.csv'
       d3.csv(url1).then(res1 => {
         res1.forEach((row1) => {
           if (row1.Country == propsdata.selectedCountry) {

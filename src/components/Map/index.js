@@ -111,7 +111,7 @@ class Map extends Component {
             >
             <ZoomableGroup zoom={this.state.zoom} center={[0,20]}>
               <Geographies
-                geography={ "/world-50m-with-population.json" }
+                geography={ process.env.PUBLIC_URL + "/world-50m-with-population.json" }
                 disableOptimization
                 >
                 {(geographies, projection) =>

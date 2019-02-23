@@ -116,7 +116,7 @@ class App extends Component {
   loadData = () => {
     let max = 0;
     let data = {}
-    let url = process.env.PUBLIC_URL + "./data/" + this.state.variable + this.state.wave + '.csv'
+    let url = process.env.PUBLIC_URL + "/data/" + this.state.variable + this.state.wave + '.csv'
     d3.csv(url).then(res => {
       let columns = Object.keys(res[0]).slice(1);
       this.setState({ columns: columns })
