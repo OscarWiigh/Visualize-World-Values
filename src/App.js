@@ -181,6 +181,10 @@ class App extends Component {
         <span className="tooltiptextnew">Bubble size represent percentages of a selected world value (such as 30% very happy) while the y-axis represents gapminder data (such as 83.2 life expectancy)</span>
         <p className="chartinfotext">Selected Country: {this.state.selectedCountry.Country}, 1995-2014</p>
       </div>
+      <div id="linkcontainer">
+      <a target="_blank" href="https://docs.google.com/document/d/1nFC85RCKpdawO7cVA9ewaFPNYc-QRlP6wEJxWyD2f1o/edit?usp=sharing">Link to discovery process</a>
+      </div>
+      
       </div>
     );
   }
