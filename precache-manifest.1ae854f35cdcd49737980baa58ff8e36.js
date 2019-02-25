@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/Visualize-World-Values/static/js/runtime~main.cd915444.js"
   },
   {
-    "revision": "b2e5cec9822bb32f7039",
-    "url": "/Visualize-World-Values/static/js/main.b2e5cec9.chunk.js"
+    "revision": "bdb207255d9cc75a72d4",
+    "url": "/Visualize-World-Values/static/js/main.bdb20725.chunk.js"
   },
   {
     "revision": "0537012a48183eb40c7a",
     "url": "/Visualize-World-Values/static/js/1.0537012a.chunk.js"
   },
   {
-    "revision": "b2e5cec9822bb32f7039",
-    "url": "/Visualize-World-Values/static/css/main.394132e5.chunk.css"
+    "revision": "bdb207255d9cc75a72d4",
+    "url": "/Visualize-World-Values/static/css/main.5a2ffff1.chunk.css"
   },
   {
-    "revision": "2ddee766d748670b27b79434b145d260",
+    "revision": "c2304fbd78af3c63f7d6296c26a598dc",
     "url": "/Visualize-World-Values/index.html"
   }
 ];
